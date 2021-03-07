@@ -432,7 +432,18 @@ class PaperInputPlace extends GestureEventListeners(PolymerElement) {
         type: String,
         notify: true,
         computed: '_computeUrl(apiKey,language,minimizeApi)'
-      }
+      },
+      /**
+        *provides place as a JSON string to enable returning back to Vaadin 10+
+        *  name as displayed in panel and lat long
+        * ***
+      */
+      placeJSON: {
+        type: String,
+	notify: true,
+        value: "not set",
+	observer: '_placeJSONChanged'
+      }      
     };
   }
 
@@ -668,7 +679,22 @@ class PaperInputPlace extends GestureEventListeners(PolymerElement) {
           lng: p.latLng.lng
         }
       };
+      this.placeJSON="{ \"place\": {\"name\":\""+p.search+"\",\"latLng\":{\"lat\":"+p.latLng.lat+" ,\"long\":"+p.latLng.lng+"}}}";
+      this.dispatchEvent(new CustomEvent('change-complete', {
+        detail: {
+          text: this.value.search
+        }
+      }));
+      this.placeName=this._value.place_id;
     }
+  }
+
+  _placeJSONChanged(event) {
+    this.dispatchEvent(new CustomEvent('change-placejson-complete', {
+        detail: {
+          placeJSON: this.placeJSON
+        }
+      }));
   }
 
   /**
@@ -771,6 +797,20 @@ class PaperInputPlace extends GestureEventListeners(PolymerElement) {
       this._value = newPlace.search;
     }
   }
+
+  fillValue(valueToFill)
+  {
+    //alert("fillvalue:"+valueToFill);
+    this.geocode(valueToFill).then(
+    function(result) {
+      // set the control to this place
+      this.putPlace(result);
+    }.bind(this),
+    function(status) {
+      // do something with status - the reason the geocode did not work
+      //  alert("The GeoCoding API failed - Status failure:"+status)
+    }.bind(this));
+  }	
 
   /**
    * sets the focus to the input field
