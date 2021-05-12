@@ -336,6 +336,17 @@ class PaperInputPlace extends GestureEventListeners(PolymerElement) {
         }
       },
       /**
+       * an viewport object
+       */
+      viewport: {
+	type: Object,
+	notify: true,
+	readOnly: true,
+	value: function () {
+	  return {};
+	}
+      },
+      /**
        * An object containing the place selected or geocoded:
        * ```
        *   place_id
@@ -670,6 +681,7 @@ class PaperInputPlace extends GestureEventListeners(PolymerElement) {
         lat: p.latLng.lat,
         lng: p.latLng.lng
       });
+      this._setViewport(p.viewport);
       this._value = this.$.nativeInput.value;
       this.value = {
         search: this.$.nativeInput.value,
@@ -679,7 +691,7 @@ class PaperInputPlace extends GestureEventListeners(PolymerElement) {
           lng: p.latLng.lng
         }
       };
-      this.placeJSON="{ \"place\": {\"name\":\""+p.search+"\",\"latLng\":{\"lat\":"+p.latLng.lat+" ,\"long\":"+p.latLng.lng+"}}}";
+      this.placeJSON="{ \"place\": {\"name\":\""+p.search+"\",\"latLng\": {\"lat\":"+p.latLng.lat+",\"long\":"+p.latLng.lng+"},\"viewport\": {\"northeast\": {\"lat\":"+p.viewport.getNorthEast().lat()+",\"long\":"+p.viewport.getNorthEast().lng()+"},\"southwest\": {\"lat\":"+p.viewport.getSouthWest().lat()+",\"long\":"+p.viewport.getSouthWest().lng()+"}}}}";
       this.dispatchEvent(new CustomEvent('change-complete', {
         detail: {
           text: this.value.search
@@ -712,6 +724,7 @@ class PaperInputPlace extends GestureEventListeners(PolymerElement) {
         lat: pl.geometry.location.lat(),
         lng: pl.geometry.location.lng()
       },
+      viewport: pl.geometry.viewport,
       basic: {
         name: pl.name || "",
         address: "",
@@ -786,6 +799,7 @@ class PaperInputPlace extends GestureEventListeners(PolymerElement) {
         lat: newPlace.latLng.lat,
         lng: newPlace.latLng.lng
       });
+      this._setViewport(newPlace.geometry.viewport);
       this.value = {
         place_id: newPlace.place_id,
         search: newPlace.search,
