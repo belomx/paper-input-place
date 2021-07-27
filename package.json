@@ -11,7 +11,7 @@
     "reverse-geocode"
   ],
   "name": "@belomx/paper-input-place",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "repository": {
     "type": "git",
     "url": "https://github.com/belomx/paper-input-place.git"
@@ -32,7 +32,8 @@
     "@polymer/iron-input": "^3.0.0-pre.18",
     "@polymer/iron-jsonp-library": "^3.0.0-pre.18",
     "@polymer/paper-input": "^3.0.0-pre.18",
-    "@polymer/polymer": "^3.0.0"
+    "@polymer/polymer": "^3.0.0",
+    "paper-input-place": "^2.0.1"
   },
   "devDependencies": {
     "@polymer/iron-component-page": "^3.0.0-pre.18",

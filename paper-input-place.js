@@ -52,8 +52,8 @@ See README.MD for more use examples, styling, api and a link to a live demo page
   then delete this comment!
 */
 import {
-  html,
-  PolymerElement
+ html,
+ PolymerElement
 } from '@polymer/polymer/polymer-element.js';
 import '@polymer/paper-input/paper-input.js';
 import '@polymer/iron-jsonp-library/iron-jsonp-library.js';
@@ -691,7 +691,7 @@ class PaperInputPlace extends GestureEventListeners(PolymerElement) {
           lng: p.latLng.lng
         }
       };
-      this.placeJSON="{ \"place\": {\"name\":\""+p.search+"\",\"latLng\": {\"lat\":"+p.latLng.lat+",\"long\":"+p.latLng.lng+"},\"viewport\": {\"northeast\": {\"lat\":"+p.viewport.getNorthEast().lat()+",\"long\":"+p.viewport.getNorthEast().lng()+"},\"southwest\": {\"lat\":"+p.viewport.getSouthWest().lat()+",\"long\":"+p.viewport.getSouthWest().lng()+"}}}}";
+      this.placeJSON="{\"address\": "+JSON.stringify(p.basic || "")+", \"place\": {\"name\":\""+p.search+"\",\"latLng\": {\"lat\":"+p.latLng.lat+",\"long\":"+p.latLng.lng+"},\"viewport\": {\"northeast\": {\"lat\":"+p.viewport.getNorthEast().lat()+",\"long\":"+p.viewport.getNorthEast().lng()+"},\"southwest\": {\"lat\":"+p.viewport.getSouthWest().lat()+",\"long\":"+p.viewport.getSouthWest().lng()+"}}}}";
       this.dispatchEvent(new CustomEvent('change-complete', {
         detail: {
           text: this.value.search
