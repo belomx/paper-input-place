@@ -744,7 +744,7 @@ class PaperInputPlace extends GestureEventListeners(PolymerElement) {
         types: pl.types ? JSON.parse(JSON.stringify(pl.types)) : [],
         website: pl.website || "",
         url: pl.url || "",
-        utc_offset: pl.utc_offset
+        utc_offset_minutes: pl.utc_offset_minutes
       }
     };
     // extract address components
