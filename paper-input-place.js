@@ -706,7 +706,8 @@ class PaperInputPlace extends GestureEventListeners(PolymerElement) {
         detail: {
           placeJSON: this.placeJSON
         }
-      }));
+    }));
+    this.placeJSON = "not set";
   }
 
   /**
