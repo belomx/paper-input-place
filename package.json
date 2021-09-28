@@ -11,7 +11,7 @@
     "reverse-geocode"
   ],
   "name": "@belomx/paper-input-place",
-  "version": "2.0.10",
+  "version": "2.0.11",
   "repository": {
     "type": "git",
     "url": "https://github.com/belomx/paper-input-place.git"

@@ -702,11 +702,13 @@ class PaperInputPlace extends GestureEventListeners(PolymerElement) {
   }
 
   _placeJSONChanged(event) {
-    this.dispatchEvent(new CustomEvent('change-placejson-complete', {
+    if (event != 'not set') {
+      this.dispatchEvent(new CustomEvent('change-placejson-complete', {
         detail: {
           placeJSON: this.placeJSON
         }
-    }));
+      }));
+    }
     this.placeJSON = "not set";
   }
 
